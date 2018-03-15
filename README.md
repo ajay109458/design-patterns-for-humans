@@ -72,50 +72,50 @@ Wikipedia says
 **Programmatic Example**
 
 First of all we have a door interface and the implementation
-```php
-interface Door
+```java
+public Interface Door
 {
-    public function getWidth(): float;
-    public function getHeight(): float;
+    public float getWidth();
+    public float getHeight();
 }
 
 class WoodenDoor implements Door
 {
-    protected $width;
-    protected $height;
+    protected float width;
+    protected float height;
 
-    public function __construct(float $width, float $height)
+    public WoodenDoor(float width, float height)
     {
-        $this->width = $width;
-        $this->height = $height;
+        this.width = width;
+        this.height = height;
     }
 
-    public function getWidth(): float
+    public float getWidth()
     {
-        return $this->width;
+        return width;
     }
 
-    public function getHeight(): float
+    public float getHeight()
     {
-        return $this->height;
+        return height;
     }
 }
 ```
 Then we have our door factory that makes the door and returns it
-```php
-class DoorFactory
+```java
+public class DoorFactory
 {
-    public static function makeDoor($width, $height): Door
+    public static Door makeDoor(float width, float height)
     {
-        return new WoodenDoor($width, $height);
+        return new WoodenDoor(width, height);
     }
 }
 ```
 And then it can be used as
-```php
-$door = DoorFactory::makeDoor(100, 200);
-echo 'Width: ' . $door->getWidth();
-echo 'Height: ' . $door->getHeight();
+```java
+Door door = DoorFactory.makeDoor(100, 200);
+System.out.println("Width: " + door.getWidth());
+System.out.println("Height: " + door.getHeight());
 ```
 
 **When to Use?**
