@@ -73,7 +73,7 @@ Wikipedia says
 
 First of all we have a door interface and the implementation
 ```java
-public Interface Door
+interface Door
 {
     public float getWidth();
     public float getHeight();
