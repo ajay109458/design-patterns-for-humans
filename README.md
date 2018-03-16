@@ -325,8 +325,8 @@ DoorFactory ironFactory = new IronDoorFactory();
 Door door = ironFactory.makeDoor();
 DoorFittingExpert expert = ironFactory.makeFittingExpert();
 
-Door door->getDescription();  // Output: I am an iron door
-DoorFittingExpert expert->getDescription(); // Output: I can only fit iron doors
+Door door.getDescription();  // Output: I am an iron door
+DoorFittingExpert expert.getDescription(); // Output: I can only fit iron doors
 ```
 
 As you can see the wooden door factory has encapsulated the `carpenter` and the `wooden door` also iron door factory has encapsulated the `iron door` and `welder`. And thus it had helped us make sure that for each of the created door, we do not get a wrong fitting expert.   
