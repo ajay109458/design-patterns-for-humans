@@ -138,51 +138,51 @@ Wikipedia says
 
 Taking our hiring manager example above. First of all we have an interviewer interface and some implementations for it
 
-```php
+```java
 interface Interviewer
 {
-    public function askQuestions();
+    public void askQuestions();
 }
 
 class Developer implements Interviewer
 {
-    public function askQuestions()
+    public void askQuestions()
     {
-        echo 'Asking about design patterns!';
+        System.out.println("Asking about design patterns!");
     }
 }
 
 class CommunityExecutive implements Interviewer
 {
-    public function askQuestions()
+    public void askQuestions()
     {
-        echo 'Asking about community building';
+        System.out.println("Asking about community building");
     }
 }
 ```
 
 Now let us create our `HiringManager`
 
-```php
+```java
 abstract class HiringManager
 {
 
     // Factory method
-    abstract protected function makeInterviewer(): Interviewer;
+    abstract protected Interviewer makeInterviewer();
 
-    public function takeInterview()
+    public void takeInterview()
     {
-        $interviewer = $this->makeInterviewer();
-        $interviewer->askQuestions();
+        interviewer = this.makeInterviewer();
+        interviewer.askQuestions();
     }
 }
 
 ```
 Now any child can extend it and provide the required interviewer
-```php
+```java
 class DevelopmentManager extends HiringManager
 {
-    protected function makeInterviewer(): Interviewer
+    protected Interviewer makeInterviewer()
     {
         return new Developer();
     }
@@ -190,7 +190,7 @@ class DevelopmentManager extends HiringManager
 
 class MarketingManager extends HiringManager
 {
-    protected function makeInterviewer(): Interviewer
+    protected Interviewer makeInterviewer()
     {
         return new CommunityExecutive();
     }
@@ -198,12 +198,12 @@ class MarketingManager extends HiringManager
 ```
 and then it can be used as
 
-```php
-$devManager = new DevelopmentManager();
-$devManager->takeInterview(); // Output: Asking about design patterns
+```java
+HiringManager devManager = new DevelopmentManager();
+devManager.takeInterview(); // Output: Asking about design patterns
 
-$marketingManager = new MarketingManager();
-$marketingManager->takeInterview(); // Output: Asking about community building.
+HiringManager marketingManager = new MarketingManager();
+marketingManager.takeInterview(); // Output: Asking about community building.
 ```
 
 **When to use?**
