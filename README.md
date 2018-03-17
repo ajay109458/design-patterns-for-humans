@@ -176,7 +176,7 @@ abstract class HiringManager
 
     public void takeInterview()
     {
-        interviewer = this.makeInterviewer();
+        Interviewer interviewer = this.makeInterviewer();
         interviewer.askQuestions();
     }
 }
@@ -203,11 +203,15 @@ class MarketingManager extends HiringManager
 and then it can be used as
 
 ```java
-HiringManager devManager = new DevelopmentManager();
-devManager.takeInterview(); // Output: Asking about design patterns
+public class AbstractFactoryPattern {
+	public static void main(String[] args) {
+		HiringManager devManager = new DevelopmentManager();
+		devManager.takeInterview(); // Output: Asking about design patterns
 
-HiringManager marketingManager = new MarketingManager();
-marketingManager.takeInterview(); // Output: Asking about community building.
+		HiringManager marketingManager = new MarketingManager();
+		marketingManager.takeInterview(); // Output: Asking about community building.
+	}
+}
 ```
 
 **When to use?**
