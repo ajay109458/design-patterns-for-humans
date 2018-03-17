@@ -363,12 +363,12 @@ The sane alternative is to use the builder pattern. First of all we have our bur
 ```java
 class Burger
 {
-    protected size;
+    protected int size;
 
-    protected cheese = false;
-    protected pepperoni = false;
-    protected lettuce = false;
-    protected tomato = false;
+    protected boolean cheese = false;
+    protected boolean pepperoni = false;
+    protected boolean lettuce = false;
+    protected boolean tomato = false;
 
     public Burger(BurgerBuilder builder)
     {
@@ -385,43 +385,43 @@ And then we have the builder
 ```java
 class BurgerBuilder
 {
-    public size;
+    public int size;
 
-    public cheese = false;
-    public pepperoni = false;
-    public lettuce = false;
-    public tomato = false;
+    public boolean cheese = false;
+    public boolean pepperoni = false;
+    public boolean lettuce = false;
+    public boolean tomato = false;
 
     public BurgerBuilder(int size)
     {
         this.size = size;
     }
 
-    public function addPepperoni()
+    public BurgerBuilder addPepperoni()
     {
         this.pepperoni = true;
         return this;
     }
 
-    public function addLettuce()
+    public BurgerBuilder addLettuce()
     {
         this.lettuce = true;
         return this;
     }
 
-    public function addCheese()
+    public BurgerBuilder addCheese()
     {
         this.cheese = true;
         return this;
     }
 
-    public function addTomato()
+    public BurgerBuilder addTomato()
     {
         this.tomato = true;
         return this;
     }
 
-    public function build(): Burger
+    public Burger build()
     {
         return new Burger(this);
     }
@@ -430,11 +430,15 @@ class BurgerBuilder
 And then it can be used as:
 
 ```java
-Burger burger = (new BurgerBuilder(14))
-                    .addPepperoni()
-                    .addLettuce()
-                    .addTomato()
-                    .build();
+public class BuilderPattern {
+	public static void main(String[] args) {
+		Burger burger = (new BurgerBuilder(14))
+                .addPepperoni()
+                .addLettuce()
+                .addTomato()
+                .build();
+	}
+}
 ```
 
 **When to use?**
