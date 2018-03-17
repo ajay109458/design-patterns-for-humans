@@ -297,7 +297,7 @@ class WoodenDoorFactory implements DoorFactory
         return new WoodenDoor();
     }
 
-    public function makeFittingExpert(): DoorFittingExpert
+    public DoorFittingExpert makeFittingExpert()
     {
         return new Carpenter();
     }
@@ -306,7 +306,7 @@ class WoodenDoorFactory implements DoorFactory
 // Iron door factory to get iron door and the relevant fitting expert
 class IronDoorFactory implements DoorFactory
 {
-    public function makeDoor(): Door
+    public Door makeDoor() 
     {
         return new IronDoor();
     }
@@ -319,22 +319,23 @@ class IronDoorFactory implements DoorFactory
 ```
 And then it can be used as
 ```java
-DoorFactory woodenFactory = new WoodenDoorFactory();
+public class AbstractFactoryPattern {
+	public static void main(String[] args) {
+		DoorFactory woodenFactory = new WoodenDoorFactory();
 
-Door door = woodenFactory.makeDoor();
-DoorFittingExpert expert = woodenFactory.makeFittingExpert();
+		Door door = woodenFactory.makeDoor();
+		DoorFittingExpert expert = woodenFactory.makeFittingExpert();
 
-Door door.getDescription();  // Output: I am a wooden door
-DoorFittingExpert expert.getDescription(); // Output: I can only fit wooden doors
+		door.getDescription();  // Output: I am a wooden door
+		expert.getDescription(); // Output: I can only fit wooden doors
 
-// Same for Iron Factory
-DoorFactory ironFactory = new IronDoorFactory();
+		// Same for Iron Factory
+		DoorFactory ironFactory = new IronDoorFactory();
 
-Door door = ironFactory.makeDoor();
-DoorFittingExpert expert = ironFactory.makeFittingExpert();
-
-Door door.getDescription();  // Output: I am an iron door
-DoorFittingExpert expert.getDescription(); // Output: I can only fit iron doors
+		door = ironFactory.makeDoor();
+		expert = ironFactory.makeFittingExpert();
+	}
+}
 ```
 
 As you can see the wooden door factory has encapsulated the `carpenter` and the `wooden door` also iron door factory has encapsulated the `iron door` and `welder`. And thus it had helped us make sure that for each of the created door, we do not get a wrong fitting expert.   
