@@ -103,7 +103,7 @@ class WoodenDoor implements Door
 ```
 Then we have our door factory that makes the door and returns it
 ```java
-public class DoorFactory
+class DoorFactory
 {
     public static Door makeDoor(float width, float height)
     {
@@ -113,9 +113,13 @@ public class DoorFactory
 ```
 And then it can be used as
 ```java
-Door door = DoorFactory.makeDoor(100, 200);
-System.out.println("Width: " + door.getWidth());
-System.out.println("Height: " + door.getHeight());
+public class SimpleFactoryPattern {
+	public static void main(String[] args) {
+		Door door = DoorFactory.makeDoor(100, 200);
+		System.out.println("Width: " + door.getWidth());
+		System.out.println("Height: " + door.getHeight());
+	}
+}
 ```
 
 **When to Use?**
