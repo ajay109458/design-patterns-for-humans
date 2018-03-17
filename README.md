@@ -348,8 +348,8 @@ Wikipedia says
 
 Having said that let me add a bit about what telescoping constructor anti-pattern is. At one point or the other we have all seen a constructor like below:
 
-```php
-public function __construct($size, $cheese = true, $pepperoni = true, $tomato = false, $lettuce = true)
+```java
+public Burger(size, cheese, pepperoni, tomato, lettuce)
 {
 }
 ```
@@ -360,82 +360,81 @@ As you can see; the number of constructor parameters can quickly get out of hand
 
 The sane alternative is to use the builder pattern. First of all we have our burger that we want to make
 
-```php
+```java
 class Burger
 {
-    protected $size;
+    protected size;
 
-    protected $cheese = false;
-    protected $pepperoni = false;
-    protected $lettuce = false;
-    protected $tomato = false;
+    protected cheese = false;
+    protected pepperoni = false;
+    protected lettuce = false;
+    protected tomato = false;
 
-    public function __construct(BurgerBuilder $builder)
+    public Burger(BurgerBuilder builder)
     {
-        $this->size = $builder->size;
-        $this->cheese = $builder->cheese;
-        $this->pepperoni = $builder->pepperoni;
-        $this->lettuce = $builder->lettuce;
-        $this->tomato = $builder->tomato;
+        this.size = builder.size;
+        this.cheese = builder.cheese;
+        this.pepperoni = builder.pepperoni;
+        this.lettuce = builder.lettuce;
+        this.tomato = builder.tomato;
     }
 }
 ```
 
 And then we have the builder
-
-```php
+```java
 class BurgerBuilder
 {
-    public $size;
+    public size;
 
-    public $cheese = false;
-    public $pepperoni = false;
-    public $lettuce = false;
-    public $tomato = false;
+    public cheese = false;
+    public pepperoni = false;
+    public lettuce = false;
+    public tomato = false;
 
-    public function __construct(int $size)
+    public BurgerBuilder(int size)
     {
-        $this->size = $size;
+        this.size = size;
     }
 
     public function addPepperoni()
     {
-        $this->pepperoni = true;
-        return $this;
+        this.pepperoni = true;
+        return this;
     }
 
     public function addLettuce()
     {
-        $this->lettuce = true;
-        return $this;
+        this.lettuce = true;
+        return this;
     }
 
     public function addCheese()
     {
-        $this->cheese = true;
-        return $this;
+        this.cheese = true;
+        return this;
     }
 
     public function addTomato()
     {
-        $this->tomato = true;
-        return $this;
+        this.tomato = true;
+        return this;
     }
 
     public function build(): Burger
     {
-        return new Burger($this);
+        return new Burger(this);
     }
 }
 ```
 And then it can be used as:
 
-```php
-$burger = (new BurgerBuilder(14))
-                    ->addPepperoni()
-                    ->addLettuce()
-                    ->addTomato()
-                    ->build();
+```java
+Burger burger = (new BurgerBuilder(14))
+                    .addPepperoni()
+                    .addLettuce()
+                    .addTomato()
+                    .build();
 ```
 
 **When to use?**
