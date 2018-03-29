@@ -627,71 +627,74 @@ Consider a game where there is a hunter and he hunts lions.
 
 First we have an interface `Lion` that all types of lions have to implement
 
-```php
-interface Lion
-{
-    public function roar();
+```java
+public interface Lion {
+	public void roar();
 }
 
-class AfricanLion implements Lion
-{
-    public function roar()
-    {
-    }
+public class AfricanLion implements Lion{
+	@Override
+	public void roar() {
+		System.out.println("African Lion roars");
+	}	
 }
 
-class AsianLion implements Lion
-{
-    public function roar()
-    {
-    }
+public class AsianLion implements Lion {
+	@Override
+	public void roar() {
+		System.out.println("Asian Lion roars");
+	}
 }
+
 ```
 And hunter expects any implementation of `Lion` interface to hunt.
-```php
-class Hunter
-{
-    public function hunt(Lion $lion)
-    {
-    }
+```java
+public class Hunter {
+	public void hunt(Lion lion)
+	{
+		
+	}
 }
 ```
 
 Now let's say we have to add a `WildDog` in our game so that hunter can hunt that also. But we can't do that directly because dog has a different interface. To make it compatible for our hunter, we will have to create an adapter that is compatible
 
-```php
+```java
 // This needs to be added to the game
-class WildDog
-{
-    public function bark()
-    {
-    }
+public class WildDog {
+	public void bark() {
+		System.out.println("Wild dog bark");
+	}
 }
 
 // Adapter around wild dog to make it compatible with our game
-class WildDogAdapter implements Lion
-{
-    protected $dog;
+public class WildDogAdapter implements Lion {
 
-    public function __construct(WildDog $dog)
-    {
-        $this->dog = $dog;
-    }
-
-    public function roar()
-    {
-        $this->dog->bark();
-    }
+	protected WildDog wildDog;
+	
+	public WildDogAdapter(WildDog wildDog) {
+		this.wildDog = wildDog;
+	}
+	
+	@Override
+	public void roar() {
+		wildDog.bark();
+	}
 }
 ```
 And now the `WildDog` can be used in our game using `WildDogAdapter`.
 
-```php
-$wildDog = new WildDog();
-$wildDogAdapter = new WildDogAdapter($wildDog);
-
-$hunter = new Hunter();
-$hunter->hunt($wildDogAdapter);
+```java
+public class Main {
+	
+	public Main() {
+		WildDog wildDog = new WildDog();
+		WildDogAdapter wildDogAdapter =  new WildDogAdapter(wildDog);
+		
+		Hunter hunter = new Hunter();
+		hunter.hunt(wildDogAdapter);
+	}
+}
 ```
 
 🚡 Bridge
@@ -711,82 +714,88 @@ Wikipedia says
 
 Translating our WebPage example from above. Here we have the `WebPage` hierarchy
 
-```php
-interface WebPage
-{
-    public function __construct(Theme $theme);
-    public function getContent();
+```java
+public interface WebPage {
+	public String getContent();
 }
 
-class About implements WebPage
-{
-    protected $theme;
 
-    public function __construct(Theme $theme)
-    {
-        $this->theme = $theme;
-    }
+public class About implements WebPage {
 
-    public function getContent()
-    {
-        return "About page in " . $this->theme->getColor();
-    }
+	protected Theme theme;
+	
+	public About(Theme theme)
+	{	
+		this.theme = theme;
+	}
+	
+	@Override
+	public String getContent() {
+		return "About page in " + theme.getColor();
+	}
+
 }
 
-class Careers implements WebPage
-{
-    protected $theme;
+public class Careers implements WebPage {
+	
+	protected Theme theme;
 
-    public function __construct(Theme $theme)
-    {
-        $this->theme = $theme;
-    }
+	public Careers(Theme theme) {
+		this.theme = theme;
+	}
 
-    public function getContent()
-    {
-        return "Careers page in " . $this->theme->getColor();
-    }
+	@Override
+	public String getContent() {
+		return "Careers Page in " + theme.getColor();
+	}
+
 }
 ```
 And the separate theme hierarchy
-```php
+```java
 
-interface Theme
-{
-    public function getColor();
+public interface Theme {
+	public String getColor();
 }
 
-class DarkTheme implements Theme
-{
-    public function getColor()
-    {
-        return 'Dark Black';
-    }
+public class DarkTheme implements Theme {
+
+	@Override
+	public String getColor() {
+		return "Dark Color";
+	}
+
 }
-class LightTheme implements Theme
-{
-    public function getColor()
-    {
-        return 'Off white';
-    }
+
+public class LightTheme implements Theme {
+
+	public String getColor() {
+		return "Light color";
+	}
+	
 }
-class AquaTheme implements Theme
-{
-    public function getColor()
-    {
-        return 'Light blue';
-    }
+
+public class AquaTheme implements Theme {
+
+	@Override
+	public String getColor() {
+		return "Aqua Color";
+	}
+
 }
 ```
 And both the hierarchies
-```php
-$darkTheme = new DarkTheme();
-
-$about = new About($darkTheme);
-$careers = new Careers($darkTheme);
-
-echo $about->getContent(); // "About page in Dark Black";
-echo $careers->getContent(); // "Careers page in Dark Black";
+```java
+public class Main {
+	public Main() {
+		Theme darkTheme = new DarkTheme();
+		WebPage about = new About(darkTheme);
+		WebPage careers = new Careers(darkTheme);
+		
+		System.out.println(about.getContent());
+		System.out.println(careers.getContent());
+	}
+}
 ```
 
 🌿 Composite
