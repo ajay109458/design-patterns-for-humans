@@ -2221,80 +2221,84 @@ Wikipedia says
 Imagine we have a build tool that helps us test, lint, build, generate build reports (i.e. code coverage reports, linting report etc) and deploy our app on the test server.
 
 First of all we have our base class that specifies the skeleton for the build algorithm
-```php
-abstract class Builder
+```java
+public abstract class Builder
 {
-
     // Template method
-    final public function build()
+    final public void build()
     {
-        $this->test();
-        $this->lint();
-        $this->assemble();
-        $this->deploy();
+        test();
+        lint();
+        assemble();
+        deploy();
     }
 
-    abstract public function test();
-    abstract public function lint();
-    abstract public function assemble();
-    abstract public function deploy();
+    abstract public void test();
+    abstract public void lint();
+    abstract public void assemble();
+    abstract public void deploy();
 }
 ```
 
 Then we can have our implementations
 
-```php
-class AndroidBuilder extends Builder
-{
-    public function test()
-    {
-        echo 'Running android tests';
-    }
+```java
+public class AndroidBuilder extends Builder{
 
-    public function lint()
-    {
-        echo 'Linting the android code';
-    }
+	@Override
+	public void test() {
+		System.out.println("Running android tests");
+	}
 
-    public function assemble()
-    {
-        echo 'Assembling the android build';
-    }
+	@Override
+	public void lint() {
+		System.out.println("Linting the android code");
+	}
 
-    public function deploy()
-    {
-        echo 'Deploying android build to server';
-    }
+	@Override
+	public void assemble() {
+		System.out.println("Assembing the android builder");
+		
+	}
+
+	@Override
+	public void deploy() {
+		System.out.println("Deploying the android");
+		
+	}
 }
 
-class IosBuilder extends Builder
-{
-    public function test()
-    {
-        echo 'Running ios tests';
-    }
 
-    public function lint()
-    {
-        echo 'Linting the ios code';
-    }
+public class IoSBuilder extends Builder{
 
-    public function assemble()
-    {
-        echo 'Assembling the ios build';
-    }
+	@Override
+	public void test() {
+		System.out.println("Running IOS tests");
+	}
 
-    public function deploy()
-    {
-        echo 'Deploying ios build to server';
-    }
+	@Override
+	public void lint() {
+		System.out.println("Linting the IOS code");
+	}
+
+	@Override
+	public void assemble() {
+		System.out.println("Assembing the IOS builder");
+		
+	}
+
+	@Override
+	public void deploy() {
+		System.out.println("Deploying the IOS");
+		
+	}
 }
 ```
 And then it can be used as
 
-```php
-$androidBuilder = new AndroidBuilder();
-$androidBuilder->build();
+```java
+AndroidBuilder androidBuilder = new AndroidBuilder();
+androidBuilder.build();		
 
 // Output:
 // Running android tests
@@ -2302,8 +2306,8 @@ $androidBuilder->build();
 // Assembling the android build
 // Deploying android build to server
 
-$iosBuilder = new IosBuilder();
-$iosBuilder->build();
+IoSBuilder ioSBuilder = new IoSBuilder();
+ioSBuilder.build();
 
 // Output:
 // Running ios tests
