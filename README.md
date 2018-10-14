@@ -2047,62 +2047,40 @@ Wikipedia says
 
 Translating our example from above. First of all we have our strategy interface and different strategy implementations
 
-```php
-interface SortStrategy
-{
-    public function sort(array $dataset): array;
+```java
+public interface SortStrategy {
+	public void sort(int[] arr);
 }
 
-class BubbleSortStrategy implements SortStrategy
-{
-    public function sort(array $dataset): array
-    {
-        echo "Sorting using bubble sort";
+public class BubbleSortStrategy implements SortStrategy {
+	@Override
+	public void sort(int[] arr) {
+		System.out.println("Sorting using bubble sort");
 
-        // Do sorting
-        return $dataset;
-    }
+	}
 }
 
-class QuickSortStrategy implements SortStrategy
-{
-    public function sort(array $dataset): array
-    {
-        echo "Sorting using quick sort";
+public class MergeSortStrategy implements SortStrategy{
 
-        // Do sorting
-        return $dataset;
-    }
+	@Override
+	public void sort(int[] arr) {
+		System.out.println("Sorting using bubble sort");
+		
+	}
+
 }
 ```
 
 And then we have our client that is going to use any strategy
-```php
+```java
 class Sorter
 {
-    protected $sorter;
-
-    public function __construct(SortStrategy $sorter)
-    {
-        $this->sorter = $sorter;
-    }
-
-    public function sort(array $dataset): array
-    {
-        return $this->sorter->sort($dataset);
-    }
+   public void sort(int[] arr, SortStrategy strategy) {
+	strategy.sort(arr);
+   }
 }
 ```
-And it can be used as
-```php
-$dataset = [1, 5, 4, 3, 2, 8];
 
-$sorter = new Sorter(new BubbleSortStrategy());
-$sorter->sort($dataset); // Output : Sorting using bubble sort
-
-$sorter = new Sorter(new QuickSortStrategy());
-$sorter->sort($dataset); // Output : Sorting using quick sort
-```
 
 💢 State
 -----
