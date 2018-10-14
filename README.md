@@ -2122,80 +2122,75 @@ Let's take an example of text editor, it lets you change the state of text that 
 
 First of all we have our state interface and some state implementations
 
-```php
-interface WritingState
-{
-    public function write(string $words);
+```java
+public interface WritingState {
+	public void write(String line);
 }
 
-class UpperCase implements WritingState
-{
-    public function write(string $words)
-    {
-        echo strtoupper($words);
-    }
+public class UpperCase implements WritingState {
+
+	@Override
+	public void write(String line) {
+		System.out.println(line.toUpperCase());
+	}
+
 }
 
-class LowerCase implements WritingState
-{
-    public function write(string $words)
-    {
-        echo strtolower($words);
-    }
+public class LowerCase implements WritingState {
+
+	@Override
+	public void write(String line) {
+		System.out.println(line.toLowerCase());
+	}
+
 }
 
-class DefaultText implements WritingState
-{
-    public function write(string $words)
-    {
-        echo $words;
-    }
+public class DefaultText implements WritingState{
+
+	@Override
+	public void write(String line) {
+		System.out.println(line);
+	}
+	
 }
 ```
+```
 Then we have our editor
-```php
-class TextEditor
-{
-    protected $state;
+```java
+public class TextEditor {
 
-    public function __construct(WritingState $state)
-    {
-        $this->state = $state;
-    }
-
-    public function setState(WritingState $state)
-    {
-        $this->state = $state;
-    }
-
-    public function type(string $words)
-    {
-        $this->state->write($words);
-    }
+	WritingState state;
+	
+	public TextEditor(WritingState state) {
+		this.state = state;
+	}
+	
+	public void setState(WritingState state) {
+		this.state = state;
+	}
+	
+	public void write(String line) {
+		this.state.write(line);
+	}
+	
 }
 ```
 And then it can be used as
-```php
-$editor = new TextEditor(new DefaultText());
+```java
+public static void main(String[] args) {
+	WritingState state = new DefaultText();
+	TextEditor editor = new TextEditor(state);
 
-$editor->type('First line');
+	editor.write("First");
 
-$editor->setState(new UpperCase());
+	editor.setState(new UpperCase());
 
-$editor->type('Second line');
-$editor->type('Third line');
+	editor.write("Second");
 
-$editor->setState(new LowerCase());
-
-$editor->type('Fourth line');
-$editor->type('Fifth line');
-
-// Output:
-// First line
-// SECOND LINE
-// THIRD LINE
-// fourth line
-// fifth line
+	editor.setState(new LowerCase());
+	editor.write("Third");
+		
+}
 ```
 
 📒 Template Method
@@ -2289,7 +2284,9 @@ public class IoSBuilder extends Builder{
 
 	@Override
 	public void deploy() {
-		System.out.println("Deploying the IOS");
+		System.out.println("Deploying the IOSpublic interface WritingState {
+	public void write(String line);
+}");
 		
 	}
 }
@@ -2302,7 +2299,9 @@ androidBuilder.build();
 
 // Output:
 // Running android tests
-// Linting the android code
+// Linting the android codepublic interface WritingState {
+	public void write(String line);
+}
 // Assembling the android build
 // Deploying android build to server
 
@@ -2315,7 +2314,9 @@ ioSBuilder.build();
 // Assembling the ios build
 // Deploying ios build to server
 ```
-
+public interface WritingState {
+	public void write(String line);
+}
 ## 🚦 Wrap Up Folks
 
 And that about wraps it up. I will continue to improve this, so you might want to watch/star this repository to revisit. Also, I have plans on writing the same about the architectural patterns, stay tuned for it.
