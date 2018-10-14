@@ -2154,7 +2154,7 @@ public class DefaultText implements WritingState{
 	
 }
 ```
-```
+
 Then we have our editor
 ```java
 public class TextEditor {
@@ -2176,6 +2176,7 @@ public class TextEditor {
 }
 ```
 And then it can be used as
+
 ```java
 public static void main(String[] args) {
 	WritingState state = new DefaultText();
@@ -2231,7 +2232,7 @@ public abstract class Builder
     abstract public void test();
     abstract public void lint();
     abstract public void assemble();
-    abstract public void deploy();
+    abstract public void deploy();state
 }
 ```
 
@@ -2298,7 +2299,7 @@ AndroidBuilder androidBuilder = new AndroidBuilder();
 androidBuilder.build();		
 
 // Output:
-// Running android tests
+// Running android testsstate
 // Linting the android codepublic interface WritingState {
 	public void write(String line);
 }
@@ -2310,7 +2311,7 @@ ioSBuilder.build();
 
 // Output:
 // Running ios tests
-// Linting the ios code
+// Linting the ios codestate
 // Assembling the ios build
 // Deploying ios build to server
 ```
